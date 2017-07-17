@@ -6,7 +6,7 @@ class BookSearch extends Component {
     state = {
         query: '',
         searchedBooks: [],
-        wantToRender:false
+        wantToRender: false
     }
 
     updateQuery = (query) => {
@@ -26,14 +26,14 @@ class BookSearch extends Component {
                 nextProps.searchedBooks[i].previewLink += "&img=1&zoom=1&printsec=frontcover"
             }
             this.setState({ searchedBooks: nextProps.searchedBooks })
-            this.setState({wantToRender:true})
+            this.setState({ wantToRender: true })
         }
     }
 
     clearQuery = (query) => {
         this.setState({ query: '' })
         this.setState({ searchedBooks: [] })
-        this.setState({wantToRender:false})
+        this.setState({ wantToRender: false })
     }
 
     onSelection(e, bookId) {
@@ -60,7 +60,7 @@ class BookSearch extends Component {
                         </div>
                     )}
                     <ol className="books-grid">
-                        <BookDisplay item={this.state.searchedBooks} category={['']} onShelfUpdate={this.props.onShelfUpdate}></BookDisplay>
+                        <BookDisplay item={this.state.searchedBooks} myBooks={this.props.books} category={['']} onShelfUpdate={this.props.onShelfUpdate}></BookDisplay>
                     </ol>
                 </div>
             </div>

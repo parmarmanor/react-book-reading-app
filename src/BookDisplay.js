@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactHover from 'react-hover';
 import BookMoveOption from './MoveOption';
-import { Link } from 'react-router-dom';
 
 const optionsCursorTrueWithMargin = {
     followCursor: true,
@@ -17,6 +16,7 @@ export default class BookDisplay extends Component {
             category: []
         }
         this.onSelection = this.onSelection.bind(this)
+        this.checkShelfFromMyBooks = this.checkShelfFromMyBooks.bind(this)
     }
 
     shouldComponentUpdate() {
@@ -30,6 +30,16 @@ export default class BookDisplay extends Component {
 
     onSelection(e, bookId) {
         this.props.onShelfUpdate(bookId, e.target.value)
+    }
+
+    checkShelfFromMyBooks(searchedBookId) {
+        for (var i = 0; i < this.props.myBooks.length; i++) {
+            if (this.props.myBooks[i].id === searchedBookId) {
+                return this.props.myBooks[i].shelf
+            }
+        }
+
+        return 'none'
     }
 
     displayBooks(category, type) {
@@ -48,8 +58,7 @@ export default class BookDisplay extends Component {
                                                 <div className="book-top">
                                                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.previewLink})` }}></div>
                                                     <div className="book-shelf-changer">
-                                                    {console.log(book)}
-                                                        <BookMoveOption booksMode={book.shelf} bookId={book.id} onChange={(event, bookId) => {
+                                                        <BookMoveOption booksMode={this.checkShelfFromMyBooks(book.id)} bookId={book.id} onChange={(event, bookId) => {
                                                             this.onSelection(event, bookId)
                                                         }} ></BookMoveOption>
                                                     </div>
